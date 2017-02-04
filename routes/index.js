@@ -21,18 +21,34 @@ router.get('/', function(req, res, next) {
 
 router.get('/new/:url(*)', function (req, res, next) {
 	
+//connect to database
 MongoClient.connect(mLab, function (err, db) {
   if (err) {
     console.log("Unable to connect to server", err);
   } else {
+
+  	//connect to server successful
     console.log("Connected to server");
 var collection = db.collection('links');
 var params = req.params.url;
+
 var newLink = function (db, callback) {
 
-var insertLink = { url: params, short: "test" };
-collection.insert([insertLink]);
-res.send(params);
+if (validUrl.isUri(params)) {
+  // if URL is valid, do this
+var shortCode = shortid.generate();
+var newUrl = { url: params, short: shortCode };
+collection.insert([newUrl]);
+res.json({ original_url: params, short_url: "localhost:3000/" + shortCode });
+
+} else {
+  // if URL is invalid, do this
+res.json({ error: "Wrong url format, make sure you have a valid protocol and real site." });
+
+  
+};
+
+
 };
  
 newLink(db, function () {
