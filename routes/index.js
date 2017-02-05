@@ -6,10 +6,14 @@ var validUrl = require('valid-url');
 var express = require('express');
 var router = express.Router();
 
+//config for database
+
+var config = require('../config');
+
 
 //connect to database
 
-var mLab = "mongodb://localhost:27017/url-shortner";
+var mLab =  'mongodb://' + config.db.host + '/' + config.db.name;
 var MongoClient = mongodb.MongoClient;
 
 
