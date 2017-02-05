@@ -1,5 +1,9 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+ h1 Ahmad's URL Shortener API
+ h2 URL Shortener
+ p.red Example Usage
+ code https://ahmadurlshortner.herokuapp.com/new/http://OldURL.com
+ p.red Expected Output is JSON
+ code {"original_url": "http://OldURL.com","short_url": "ahmadurlshortner.herokuapp.com/ShortenedURL"}
